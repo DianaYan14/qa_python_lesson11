@@ -35,8 +35,8 @@ def test_successful():
     browser.element('#state').click()
     browser.element('#react-select-3-input').set_value('NCR').press_tab()
     browser.element('#react-select-4-input').type('Delhi').press_enter()
-    browser.element("footer").execute_script('element.remove()')
-    browser.element('#submit').execute_script('element.click()')
+    browser.driver.execute_script("$('footer').remove()")
+    browser.driver.execute_script("$('#submit').click()")
 
  with allure.step("Check form results"):
     browser.element('.modal-title').should(have.text('Thanks for submitting the form'))
@@ -45,4 +45,4 @@ def test_successful():
         'Date of Birth 06 January,1984', 'Subjects Maths, English', 'Hobbies Reading',
         'Picture picture.jpg', 'Address 221B Baker Street',
         'State and City NCR Delhi'))
-    browser.element('#closeLargeModal').execute_script('element.click()')
+    browser.driver.execute_script("$('#closeLargeModal').click()")
