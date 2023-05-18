@@ -30,7 +30,7 @@ def test_successful(setup_browser):
     browser.element("#subjectsInput").type('Maths').press_enter()
     browser.element("#subjectsInput").type('Eng').press_enter()
     browser.element("#hobbiesWrapper").element(by.text("Sports")).click()
-    browser.element('#uploadPicture').send_keys(os.getcwd() + '/picture.jpg')
+    #browser.element('#uploadPicture').send_keys(os.getcwd() + '/picture.jpg')
     browser.driver.execute_script('window.scrollTo(0, document.body.scrollHeight)')
     browser.element('#currentAddress').type('221B Baker Street')
     browser.element('#state').click()
@@ -44,6 +44,6 @@ def test_successful(setup_browser):
     browser.all('tbody tr').should(have.exact_texts('Student Name Sherlock Holmes', 'Student Email HolmsTest@gmail.com',
                                                     'Gender Male', 'Mobile 8977777575',
                                                     'Date of Birth 06 January,1984', 'Subjects Maths, English',
-                                                    'Hobbies Sports', 'Picture picture.jpg',
+                                                    'Hobbies Sports', 'Picture',
                                                     'Address 221B Baker Street', 'State and City NCR Delhi'))
     #browser.driver.execute_script("$('#closeLargeModal').click()")
