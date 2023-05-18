@@ -1,5 +1,4 @@
 import os
-
 import pytest
 from dotenv import load_dotenv
 from selene import Browser, Config
@@ -38,11 +37,11 @@ def setup_browser(request):
     }
     options.capabilities.update(selenoid_capabilities)
 
-    #login = os.getenv('LOGIN')
-    #password = os.getenv('PASSWORD')
+    login = os.getenv('LOGIN')
+    password = os.getenv('PASSWORD')
 
     driver = webdriver.Remote(
-        command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
+        command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub",
         options=options
     )
     browser = Browser(Config(driver))

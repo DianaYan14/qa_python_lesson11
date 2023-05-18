@@ -1,15 +1,16 @@
 import os
 import allure
-from selene import be, have
-from selene.support.shared import browser
+from selene import be, have, by
 
 
 @allure.title("Successful fill form")
-def test_successful():
+def test_successful(setup_browser):
+ browser = setup_browser
 
  with allure.step("Open registrations form"):
-    browser.open('https://demoqa.com/automation-practice-form')
-    browser.element('.practice-form-wrapper').should(have.text('Student Registration Form'))
+     browser.open('https://demoqa.com/automation-practice-form')
+     browser.element('.practice-form-wrapper').should(have.text('Student Registration Form'))
+     browser.driver.execute_script("$('#fixedban').remove()")
 
  with allure.step("Fill form"):
     browser.element("#firstName").type('Sherlock')
@@ -28,9 +29,9 @@ def test_successful():
     browser.element('#dateOfBirthInput').should(have.value('06 Jan 1984'))
     browser.element("#subjectsInput").type('Maths').press_enter()
     browser.element("#subjectsInput").type('Eng').press_enter()
-    browser.element('label[for="hobbies-checkbox-2"]').click()
+    browser.element("#hobbiesWrapper").element(by.text("Sports")).click()
     browser.element('#uploadPicture').send_keys(os.getcwd() + '/picture.jpg')
-    browser.execute_script('window.scrollTo(0, document.body.scrollHeight)')
+    browser.driver.execute_script('window.scrollTo(0, document.body.scrollHeight)')
     browser.element('#currentAddress').type('221B Baker Street')
     browser.element('#state').click()
     browser.element('#react-select-3-input').set_value('NCR').press_tab()
@@ -40,9 +41,9 @@ def test_successful():
 
  with allure.step("Check form results"):
     browser.element('.modal-title').should(have.text('Thanks for submitting the form'))
-    browser.all('tbody tr').should(have.exact_texts(
-        'Student Name Sherlock Holmes', 'Student Email HolmsTest@gmail.com', 'Gender Male', 'Mobile 8977777575',
-        'Date of Birth 06 January,1984', 'Subjects Maths, English', 'Hobbies Reading',
-        'Picture picture.jpg', 'Address 221B Baker Street',
-        'State and City NCR Delhi'))
-    browser.driver.execute_script("$('#closeLargeModal').click()")
+    browser.all('tbody tr').should(have.exact_texts('Student Name Sherlock Holmes', 'Student Email HolmsTest@gmail.com',
+                                                    'Gender Male', 'Mobile 8977777575',
+                                                    'Date of Birth 06 January,1984', 'Subjects Maths, English',
+                                                    'Hobbies Sports', 'Picture picture.jpg',
+                                                    'Address 221B Baker Street', 'State and City NCR Delhi'))
+    #browser.driver.execute_script("$('#closeLargeModal').click()")
