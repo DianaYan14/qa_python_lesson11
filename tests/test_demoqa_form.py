@@ -3,6 +3,7 @@ import allure
 from selene import be, have
 from selene.support.shared import browser
 
+
 @allure.title("Successful fill form")
 def test_successful():
 
